@@ -78,6 +78,7 @@ contract Bazaar {
 
     struct Item {
         uint id;
+        string hash;
         string nameOfProduct;
         uint value;
         string condition;
@@ -112,9 +113,10 @@ contract Bazaar {
         emit userSuccess(_newUserAddress);
     }
 
-    function createItem(address _userAddress, string memory _name, uint _value, string memory _condition, string memory _sku, string memory _category, string memory _description) public onlyUser {
+    function createItem(address _userAddress, string _hash, string memory _name, uint _value, string memory _condition, string memory _sku, string memory _category, string memory _description) public onlyUser {
         Item memory item = Item({
             id : allItems.length,
+            hash : _hash,
             nameOfProduct : _name,
             value : _value,
             condition : _condition,

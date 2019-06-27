@@ -10,9 +10,8 @@
                 <div class="collapse navbar-collapse mt-10" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li v-if="$store.state.user_type == 0" class="nav-item nav-li"><router-link class="a" to="/dashboard">Dashboard</router-link></li>
-                        <li  class="nav-item nav-li"><router-link class="a" to="/market">Market Place</router-link></li>
+                        <li  v-if="$store.state.user_type == 2" class="nav-item nav-li"><router-link class="a" to="/market">Market Place</router-link></li>
                         <li v-if="$store.state.user_type == 1" class="nav-item nav-li"><router-link class="a" to="/store">Store</router-link></li>
-                        <li v-if="$store.state.user_type == 0" class="nav-item nav-li"><router-link class="a" to="/store">Store</router-link></li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">

@@ -49,13 +49,24 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="label">Description</div>
-                                    <textarea class="form-control" v-model="desc"
-                                              placeholder="Describe your products as best as you can...">
-
-                                </textarea>
+                                    <div class="label">Product Image</div>
+                                    <div class="div-data">
+                                        <div class="dd-form">
+                                            <input type="file" ref="file" @change="selectFile">
+                                            <p>{{ message }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="label" style="padding-top: 15px">Description</div>
+                                    <textarea class="form-control" v-model="desc"
+                                              placeholder="Describe your products as best as you can...">
+                                    </textarea>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -72,10 +83,21 @@
                 p_condition: '',
                 sku: '',
                 cat: '',
-                desc: ''
+                desc: '',
+                message: 'No File Selected'
             }
         },
         methods: {
+            selectFile() {
+                this.message = 'File Selected';
+                this.file = this.$refs.file.files[0];
+                const reader = new FileReader();
+                reader.readAsArrayBuffer(this.file);
+                reader.onloadend = () => {
+                    const buffer = Buffer(reader.result);
+                    this.$store.dispatch('save_buffer', buffer);
+                }
+            },
             createUsr() {
                 const item = {
                     name: this.p_name,
@@ -100,6 +122,35 @@
 </script>
 
 <style scoped>
+    .div-data {
+        position: relative;
+    }
+
+    .dd-form {
+        border: 2px dashed #bbb;
+        margin-top: 15px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+
+    .dd-form p {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 135px;
+        color: #bbb;
+    }
+
+    .dd-form input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+    }
+
     .label {
         font-family: 'Montserrat', sans-serif;
         font-size: 13px;

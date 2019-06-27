@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import {BAZAAR_ADDRESS, BAZAAR_CONTRACT_ABI} from './config'
-
+import ipfs from './ipfs'
 
 export default {
     state: {
@@ -10,7 +10,9 @@ export default {
         products: [],
         user_type: null,
         registered: [],
-        market_all_pdts : []
+        market_all_pdts: [],
+        buffer: null,
+        ipfsHash: ''
     },
     getters: {
         get_account: (state) => {
@@ -28,7 +30,7 @@ export default {
         all_pdt_length: (state) => {
             return state.market_all_pdts.length;
         },
-        all_pdts : (state) => {
+        all_pdts: (state) => {
             return state.market_all_pdts;
         }
     },
@@ -53,6 +55,12 @@ export default {
         },
         saveAddress: (state, address) => {
             state.registered.push(address);
+        },
+        SAVE_BUFFER: (state, payload) => {
+            state.buffer = payload;
+        },
+        save_hash: (state, payload) => {
+            state.ipfsHash = payload
         }
     },
     actions: {
@@ -120,9 +128,12 @@ export default {
                     const item_s = await state.instance.methods.getItemInfo(i).call();
                     const item = Object.assign({},
                         {item_id: item_s.id},
-                        {item_name: item_s.nameOfItem},
-                        {item_category: item_s.typeofItem},
-                        {item_value: item_s.value}
+                        {item_hash: item_s.hash},
+                        {item_name: item_s.nameOfProduct},
+                        {item_category: item_s.category},
+                        {item_value: item_s.value},
+                        {item_sku: item_s.sku},
+                        {item_description: item_s.description}
                     );
                     // state.products.push(item);
                     commit("save_pdt", item);
@@ -136,18 +147,21 @@ export default {
         },
         async get_all_products_by_address({commit, state}) {
             const allProducts_length = await state.instance.methods.getAllItemsLength().call();
-            console.log(allProducts_length);
+            // console.log(allProducts_length);
 
             if (allProducts_length) {
                 for (var i = 0; i < allProducts_length; i++) {
                     const item_ = await state.instance.methods.allItems(i).call();
                     const item = Object.assign({},
                         {item_id: item_.id},
+                        {item_hash: item_.hash},
                         {item_name: item_.nameOfProduct},
                         {item_category: item_.category},
-                        {item_value: item_.value}
+                        {item_value: item_.value},
+                        {item_sku: item_.sku},
+                        {item_description: item_.description}
                     );
-                    console.log(item_);
+                    // console.log(item_);
                     commit("save_all", item)
                 }
             }
@@ -155,12 +169,28 @@ export default {
                 return
             }
         },
+        save_buffer({commit}, buffer) {
+            commit("SAVE_BUFFER", buffer)
+        },
         async checkUserRole({commit, state}) {
             const userRole = await state.instance.methods.checkAdressRole(state.account).call();
             commit("__userType", userRole);
         },
-        async set_user_items({state}, item) {
-            await state.instance.methods.createItem(state.account, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
+         set_user_items({commit, state}, item) {
+            ipfs.add(state.buffer, (error, result) => {
+                if (error) {
+                    console.error(error);
+                    return
+                }
+                else{
+                    const hash = result[0].hash;
+                    commit("save_hash", hash);
+                }
+            })
+            .then(async () => {
+                await state.instance.methods.createItem(state.account, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
+            })
+            // await state.instance.methods.createItem(state.account, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
         },
         async create_user({state}, _address) {
             await state.instance.methods.createUser(_address).send({from: state.account})

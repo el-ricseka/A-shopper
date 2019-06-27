@@ -1521,10 +1521,16 @@
       "links": {},
       "address": "0x2dd7758B21390deF3C9A05Ba01C5943557204c99",
       "transactionHash": "0x38053d7fab07585a64f194c55a6a4c16c144c93e6e5a82b26704803164043928"
+    },
+    "1561533442429": {
+      "events": {},
+      "links": {},
+      "address": "0x78c9cb14d39BEf72909F6eC7AeA50276aF80F677",
+      "transactionHash": "0x48bf1ff5ffa2f3c89fc877cf66ba5c69c91de2520aa379084b4720816f3596e4"
     }
   },
   "schemaVersion": "3.0.5",
-  "updatedAt": "2019-06-25T12:24:47.952Z",
+  "updatedAt": "2019-06-26T07:38:27.704Z",
   "devdoc": {
     "methods": {}
   },

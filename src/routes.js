@@ -2,7 +2,12 @@
 export default [
     {
         path: '/market',
-        component: () => import('./components/Market')
+        component: () => import('./components/Market'),
+    },
+    {
+        path: '/details/pid=:id',
+        name: 'details',
+        component: () => import('./components/ProductDetails'),
     },
     {
         path: '/store',

@@ -1,4 +1,4 @@
-export const BAZAAR_ADDRESS = '0x304C9cF4280B2e67Bc960BA10F0e519e9c6914c0';
+export const BAZAAR_ADDRESS = '0x9102c56a5fA08e17B3F138cF67Ca4493912F6d03';
 export const BAZAAR_CONTRACT_ABI = [
     {
         "constant": true,

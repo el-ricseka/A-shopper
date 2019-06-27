@@ -9995,10 +9995,16 @@
       "links": {},
       "address": "0x304C9cF4280B2e67Bc960BA10F0e519e9c6914c0",
       "transactionHash": "0x6670781a214af95c50cd96e06b6756d7ca1b4e5360c5157d298991ac72c5c21d"
+    },
+    "1561533442429": {
+      "events": {},
+      "links": {},
+      "address": "0x9102c56a5fA08e17B3F138cF67Ca4493912F6d03",
+      "transactionHash": "0x2ea66f863fbd39c54554e280399ff3ffa1df23d904517e9b985e6d807bd8a617"
     }
   },
   "schemaVersion": "3.0.5",
-  "updatedAt": "2019-06-25T12:24:47.958Z",
+  "updatedAt": "2019-06-26T07:38:27.710Z",
   "devdoc": {
     "methods": {}
   },
