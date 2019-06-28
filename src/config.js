@@ -1,5 +1,5 @@
-export const BAZAAR_ADDRESS = '0x9102c56a5fA08e17B3F138cF67Ca4493912F6d03';
-export const BAZAAR_CONTRACT_ABI = [
+export const BAZAAR_ADDRESS = '0xE02ACabB2f7b5C791D740BAB3f675DdCc752927B';
+export const BAZAAR_CONTRACT_ABI =  [
     {
         "constant": true,
         "inputs": [
@@ -97,6 +97,10 @@ export const BAZAAR_CONTRACT_ABI = [
             {
                 "name": "id",
                 "type": "uint256"
+            },
+            {
+                "name": "hash",
+                "type": "string"
             },
             {
                 "name": "nameOfProduct",
@@ -267,6 +271,10 @@ export const BAZAAR_CONTRACT_ABI = [
                 "type": "address"
             },
             {
+                "name": "_hash",
+                "type": "string"
+            },
+            {
                 "name": "_name",
                 "type": "string"
             },
@@ -296,7 +304,7 @@ export const BAZAAR_CONTRACT_ABI = [
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
-        "signature": "0x24366331"
+        "signature": "0x4b87289b"
     },
     {
         "constant": true,
@@ -378,16 +386,32 @@ export const BAZAAR_CONTRACT_ABI = [
                 "type": "uint256"
             },
             {
-                "name": "nameOfItem",
+                "name": "hash",
                 "type": "string"
             },
             {
-                "name": "typeofItem",
+                "name": "nameOfProduct",
                 "type": "string"
             },
             {
                 "name": "value",
                 "type": "uint256"
+            },
+            {
+                "name": "condition",
+                "type": "string"
+            },
+            {
+                "name": "sku",
+                "type": "string"
+            },
+            {
+                "name": "category",
+                "type": "string"
+            },
+            {
+                "name": "description",
+                "type": "string"
             }
         ],
         "payable": false,

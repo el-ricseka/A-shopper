@@ -107,15 +107,18 @@
                     category: this.cat,
                     description: this.desc
                 };
-                this.$store.dispatch('set_user_items', item)
-                    .then(res => {
-                        this.p_name = '';
-                        this.p_price = '';
-                        this.p_condition = '';
-                        this.sku = '';
-                        this.cat = '';
-                        this.desc = '';
-                    })
+                this.$store.dispatch('get_hash')
+                    .then(resp => {
+                        this.$store.dispatch('set_user_items', item)
+                            .then(res => {
+                                this.p_name = '';
+                                this.p_price = '';
+                                this.p_condition = '';
+                                this.sku = '';
+                                this.cat = '';
+                                this.desc = '';
+                            })
+                    });
             }
         }
     }

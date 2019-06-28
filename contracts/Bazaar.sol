@@ -113,7 +113,7 @@ contract Bazaar {
         emit userSuccess(_newUserAddress);
     }
 
-    function createItem(address _userAddress, string _hash, string memory _name, uint _value, string memory _condition, string memory _sku, string memory _category, string memory _description) public onlyUser {
+    function createItem(address _userAddress, string memory _hash, string memory _name, uint _value, string memory _condition, string memory _sku, string memory _category, string memory _description) public onlyUser {
         Item memory item = Item({
             id : allItems.length,
             hash : _hash,
@@ -149,9 +149,9 @@ contract Bazaar {
     }
 
     //This function returns all information about single item
-    function getItemInfo(uint _itemId) public view returns (uint id, string memory nameOfItem, string memory typeofItem, uint value) {
+    function getItemInfo(uint _itemId) public view returns (uint id, string memory hash, string memory nameOfProduct, uint value, string memory condition, string memory sku, string memory category, string memory description) {
         Item memory item = allItems[_itemId];
-        return (item.id, item.nameOfProduct, item.category, item.value);
+        return (item.id, item.hash, item.nameOfProduct, item.value, item.condition, item.sku, item.category, item.description);
     }
 
 }

@@ -135,9 +135,7 @@ export default {
                         {item_sku: item_s.sku},
                         {item_description: item_s.description}
                     );
-                    // state.products.push(item);
                     commit("save_pdt", item);
-                    // console.log(item)
                 }
             }
             else {
@@ -176,21 +174,26 @@ export default {
             const userRole = await state.instance.methods.checkAdressRole(state.account).call();
             commit("__userType", userRole);
         },
-         set_user_items({commit, state}, item) {
-            ipfs.add(state.buffer, (error, result) => {
-                if (error) {
-                    console.error(error);
-                    return
-                }
-                else{
-                    const hash = result[0].hash;
-                    commit("save_hash", hash);
-                }
-            })
-            .then(async () => {
-                await state.instance.methods.createItem(state.account, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
-            })
-            // await state.instance.methods.createItem(state.account, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
+         get_hash({ commit, state }) {
+            return new Promise((resolve, reject) => {
+
+                ipfs.add(state.buffer, (error, result) => {
+                    if (error) {
+                        console.error(error);
+                        reject(error)
+                        return
+                    }
+                    else{
+                        const hash = result[0].hash;
+                        commit("save_hash", hash);
+                        resolve (result);
+                    }
+                });
+            });
+        },
+         async set_user_items({commit, state}, item) {
+            console.log(state.ipfsHash);
+            await state.instance.methods.createItem(state.account, state.ipfsHash, item.name, item.price, item.condition, item.sku, item.category, item.description).send({from: state.account})
         },
         async create_user({state}, _address) {
             await state.instance.methods.createUser(_address).send({from: state.account})

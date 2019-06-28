@@ -3,7 +3,7 @@
         <div class="container cont-cust" v-if="product">
             <div class="details-container">
                 <div class="image-cont">
-                    <img class="info-img" src="../assets/img/sample1.jpg">
+                    <img class="info-img" :src="'http://localhost:8080/ipfs/' + product.item_hash">
                 </div>
                 <div class="info">
                     <h2 class="pull-right">{{ product.item_name }}</h2>

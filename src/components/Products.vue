@@ -26,7 +26,7 @@
                                     <div class="col-md-4" v-for="(product, index) in prod">
                                         <div class="ms-item">
                                             <div class="img-link3">
-                                                <img class="info-img" src="../assets/img/6_1.jpg">
+                                                <img class="info-img" :src="'http://localhost:8080/ipfs/' + product.item_hash">
                                             </div>
                                             <div class="info-back">
                                                 <div class="hot-img">{{product.item_name}}</div>
