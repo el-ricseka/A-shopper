@@ -1,28 +1,29 @@
 # vue-truffle
 
 ## Project setup
+Ensure that ganache and ipfs are installed locally. Also ensure that [CORS](https://github.com/ipfs/js-ipfs-http-client) is configured for IPFS
+###install node modules 
 ```
 npm install
 ```
+###Start IPFS Daemon
+Ensure that its running on port 8080
+```
+ipfs daemon
+```
+###Start Ganache and import accounts into metamask
 
-### Compiles and hot-reloads for development
+```
+ganache-cli
+```
+### Start development server
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Run truffle tests
 ```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
+truffle test
 ```
 
 ### Customize configuration
